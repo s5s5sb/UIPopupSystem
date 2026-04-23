@@ -4,6 +4,6 @@ namespace UIPopupSystem.Core.Services
 {
     public interface IAdsService
     {
-        void ShowRewardedAd(Action onCompleted);
+        public void ShowRewardedAd(Action onCompleted);
     }
 }

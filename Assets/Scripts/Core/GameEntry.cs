@@ -10,6 +10,8 @@ namespace UIPopupSystem.Core
         [SerializeField] private PuzzleGridView gridView;
         [SerializeField] private StartPopupView startPopupView;
 
+        private PuzzleGridPresenter _presenter;
+
         private void Start()
         {
             IPuzzleLoader loader = new PuzzleLoader();
@@ -18,8 +20,13 @@ namespace UIPopupSystem.Core
             StartPopupPresenter popupPresenter = new StartPopupPresenter(startPopupView, currencyService, adsService);
             PopupManager popupManager = new PopupManager(popupPresenter);
             
-            PuzzleGridPresenter presenter = new PuzzleGridPresenter(gridView, loader, popupManager);
-            presenter.Init();
+            _presenter = new PuzzleGridPresenter(gridView, loader, popupManager, currencyService);
+            _presenter.Init();
+        }
+
+        private void OnDestroy()
+        {
+            _presenter.Clear();
         }
     }
 }

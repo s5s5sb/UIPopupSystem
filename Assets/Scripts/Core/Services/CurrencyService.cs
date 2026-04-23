@@ -1,19 +1,21 @@
+using System;
+
 namespace UIPopupSystem.Core.Services
 {
     public class CurrencyService : ICurrencyService
     {
-        private int _coins = 1000;
-        
-        public int Coins => _coins;
+        public event Action<int> OnCoinsChanged;
+        public int Coins { get; private set; } = 1000;
 
-        public bool TrySpend(int cost)
+        public bool TrySpend(int amount)
         {
-            if (_coins < cost)
+            if (Coins < amount)
             {
                 return false;
             }
 
-            _coins -= cost;
+            OnCoinsChanged?.Invoke(Coins);
+            Coins -= amount;
             return true;
         }
     }

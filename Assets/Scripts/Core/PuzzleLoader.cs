@@ -11,14 +11,13 @@ namespace UIPopupSystem.Core
         {
             Sprite[] sprites = Resources.LoadAll<Sprite>("Puzzles");
 
-            return sprites
-                .Select((sprite, index) => new PuzzleData
+            return sprites.Select((sprite, index) => new PuzzleData
                 {
                     Preview = sprite,
-                    Mode = (index % 3) switch
+                    Mode = index switch
                     {
-                        0 => StartMode.Free,
-                        1 => StartMode.Coins,
+                        < 2 => StartMode.Free,
+                        < 5 => StartMode.Coins,
                         _ => StartMode.Ads
                     }}).ToList();
         }

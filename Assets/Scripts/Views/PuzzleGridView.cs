@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 namespace UIPopupSystem.Views
@@ -6,10 +7,16 @@ namespace UIPopupSystem.Views
     {
         [SerializeField] private Transform container;
         [SerializeField] private PuzzleItemView itemPrefab;
+        [SerializeField] private TMP_Text coinsText;
 
         public PuzzleItemView CreateItem()
         {
             return Instantiate(itemPrefab, container);
+        }
+        
+        public void SetCoinsText(int value)
+        {
+            coinsText.text = $"COINS: {value}";
         }
 
         public void Clear()
