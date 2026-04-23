@@ -14,8 +14,8 @@ namespace UIPopupSystem.Core.Services
                 return false;
             }
 
-            OnCoinsChanged?.Invoke(Coins);
             Coins -= amount;
+            OnCoinsChanged?.Invoke(Coins);
             return true;
         }
     }
