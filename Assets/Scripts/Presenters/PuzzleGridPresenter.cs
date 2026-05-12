@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UIPopupSystem.Core;
 using UIPopupSystem.Core.Services;
 using UIPopupSystem.Data;
@@ -22,20 +23,19 @@ namespace UIPopupSystem.Presenters
             _currencyService = currencyService;
         }
 
-        public void Init()
+        public async Task Init()
         {
-            List<PuzzleData> puzzles = _loader.Load();
+            List<PuzzleData> puzzles = await _loader.Load();
             _view.Clear();
 
             foreach (PuzzleData puzzle in puzzles)
             {
                 PuzzleItemView item = _view.CreateItem();
-                item.Init(puzzle.Preview, GetModeLabel(puzzle.Mode), () =>
-                {
-                    OnPuzzleSelected(puzzle);
-                });
+                item.Init(
+                    puzzle.Preview,
+                    GetModeLabel(puzzle.Mode),
+                    () => OnPuzzleSelected(puzzle));
             }
-            
             _view.SetCoinsText(_currencyService.Coins);
             _currencyService.OnCoinsChanged += OnCoinsChanged;
         }

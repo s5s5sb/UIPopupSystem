@@ -1,17 +1,26 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UIPopupSystem.Data;
+using UnityEngine.AddressableAssets;
+using UnityEngine.U2D;
 
 namespace UIPopupSystem.Core
 {
     public class PuzzleLoader : IPuzzleLoader
     {
-        public List<PuzzleData> Load()
-        {
-            Sprite[] sprites = Resources.LoadAll<Sprite>("Puzzles");
+        private const string AtlasKey = "Puzzles";
 
-            return sprites.Select((sprite, index) => new PuzzleData
+        public async Task<List<PuzzleData>> Load()
+        {
+            SpriteAtlas atlas = await Addressables.LoadAssetAsync<SpriteAtlas>(AtlasKey).Task;
+            Sprite[] sprites = new Sprite[atlas.spriteCount];
+            atlas.GetSprites(sprites);
+
+            return sprites
+                .OrderBy(x => x.name)
+                .Select((sprite, index) => new PuzzleData
                 {
                     Preview = sprite,
                     Mode = index switch
@@ -19,7 +28,9 @@ namespace UIPopupSystem.Core
                         < 2 => StartMode.Free,
                         < 5 => StartMode.Coins,
                         _ => StartMode.Ads
-                    }}).ToList();
+                    }
+                })
+                .ToList();
         }
     }
 }

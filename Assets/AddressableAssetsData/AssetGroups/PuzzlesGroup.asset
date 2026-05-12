@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: PuzzlesGroup
+  m_EditorClassIdentifier: 
+  m_GroupName: PuzzlesGroup
+  m_GUID: 233ee2bd7dd494ae9b5a3e36d5e4b5ce
+  m_SerializeEntries:
+  - m_GUID: c72cee1f910ca448da56a9342c78b743
+    m_Address: Puzzles
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2ddef3556333a483d8e028ea2c48bab3, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 508ee22d4c36f4f3d8715def3b87aa36, type: 2}
+    - {fileID: 11400000, guid: ba0ec119459204450abb8d407cf1f2d6, type: 2}

@@ -12,7 +12,7 @@ namespace UIPopupSystem.Core
 
         private PuzzleGridPresenter _presenter;
 
-        private void Start()
+        private async void Start()
         {
             IPuzzleLoader loader = new PuzzleLoader();
             IAdsService adsService = new AdsService();
@@ -21,7 +21,7 @@ namespace UIPopupSystem.Core
             PopupManager popupManager = new PopupManager(popupPresenter);
             
             _presenter = new PuzzleGridPresenter(gridView, loader, popupManager, currencyService);
-            _presenter.Init();
+            await _presenter.Init();
         }
 
         private void OnDestroy()
