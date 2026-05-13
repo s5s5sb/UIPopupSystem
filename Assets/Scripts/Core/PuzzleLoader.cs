@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UIPopupSystem.Data;
 using UnityEngine.AddressableAssets;
@@ -12,9 +12,9 @@ namespace UIPopupSystem.Core
     {
         private const string AtlasKey = "Puzzles";
 
-        public async Task<List<PuzzleData>> Load()
+        public async UniTask<List<PuzzleData>> Load()
         {
-            SpriteAtlas atlas = await Addressables.LoadAssetAsync<SpriteAtlas>(AtlasKey).Task;
+            SpriteAtlas atlas = await Addressables.LoadAssetAsync<SpriteAtlas>(AtlasKey).ToUniTask();
             Sprite[] sprites = new Sprite[atlas.spriteCount];
             atlas.GetSprites(sprites);
 

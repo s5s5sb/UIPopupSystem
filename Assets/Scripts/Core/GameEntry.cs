@@ -1,7 +1,10 @@
+using System;
+using Cysharp.Threading.Tasks;
 using UIPopupSystem.Core.Services;
 using UIPopupSystem.Presenters;
 using UIPopupSystem.Views;
 using UnityEngine;
+using VContainer;
 
 namespace UIPopupSystem.Core
 {
@@ -11,17 +14,37 @@ namespace UIPopupSystem.Core
         [SerializeField] private StartPopupView startPopupView;
 
         private PuzzleGridPresenter _presenter;
+        private IPuzzleLoader _loader;
+        private IAdsService _adsService;
+        private ICurrencyService _currencyService;
 
-        private async void Start()
+        [Inject]
+        private void Construct(IPuzzleLoader loader, IAdsService adsService, ICurrencyService currencyService)
         {
-            IPuzzleLoader loader = new PuzzleLoader();
-            IAdsService adsService = new AdsService();
-            ICurrencyService currencyService = new CurrencyService();
-            StartPopupPresenter popupPresenter = new StartPopupPresenter(startPopupView, currencyService, adsService);
-            PopupManager popupManager = new PopupManager(popupPresenter);
-            
-            _presenter = new PuzzleGridPresenter(gridView, loader, popupManager, currencyService);
-            await _presenter.Init();
+            _loader = loader;
+            _adsService = adsService;
+            _currencyService = currencyService;
+        }
+        
+        private void Start()
+        {
+            Initialize().Forget();
+        }
+
+        private async UniTask Initialize()
+        {
+            try
+            {
+                StartPopupPresenter popupPresenter = new StartPopupPresenter(startPopupView, _currencyService, _adsService);
+                PopupManager popupManager = new PopupManager(popupPresenter);
+                
+                _presenter = new PuzzleGridPresenter(gridView, _loader, popupManager, _currencyService);
+                await _presenter.Init();
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
         }
 
         private void OnDestroy()

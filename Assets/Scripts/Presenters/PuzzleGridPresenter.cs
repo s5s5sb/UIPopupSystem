@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UIPopupSystem.Core;
 using UIPopupSystem.Core.Services;
 using UIPopupSystem.Data;
@@ -23,7 +24,7 @@ namespace UIPopupSystem.Presenters
             _currencyService = currencyService;
         }
 
-        public async Task Init()
+        public async UniTask Init()
         {
             List<PuzzleData> puzzles = await _loader.Load();
             _view.Clear();

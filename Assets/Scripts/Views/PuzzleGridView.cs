@@ -8,10 +8,17 @@ namespace UIPopupSystem.Views
         [SerializeField] private Transform container;
         [SerializeField] private PuzzleItemView itemPrefab;
         [SerializeField] private TMP_Text coinsText;
+        
+        private IPuzzleItemFactory _puzzleFactory;
+
+        private void Awake()
+        {
+            _puzzleFactory = new PuzzleItemFactory(itemPrefab,  container);
+        }
 
         public PuzzleItemView CreateItem()
         {
-            return Instantiate(itemPrefab, container);
+            return _puzzleFactory.Create();
         }
         
         public void SetCoinsText(int value)
